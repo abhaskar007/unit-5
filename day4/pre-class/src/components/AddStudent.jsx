@@ -1,4 +1,31 @@
+import { useEffect,useState } from "react";
+
 export const AddStudent = () => {
+  const [formData, setForm] = useState({
+    first_name : "",
+    last_name: "",
+    email: "",
+    gender: "",
+    age: "",
+    tenth_score: "",
+    twelth_score: "",
+    preferred_score: "",
+  });
+  const handlechange = (e)=>{
+    const{name,value}=e.target;
+    setForm({
+      ...formData,
+      [name]:value,
+    })
+    console.log(formData)
+  }
+  async function postdata(formData){
+    var data2 = await fetch("http://localhost:3000/students",{
+      method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+    })
+  }
     return (
       <form className="addstudent">
         <div>
@@ -8,6 +35,7 @@ export const AddStudent = () => {
             name="first_name"
             className="first_name"
             placeholder="enter first name"
+            onChange={handlechange}
           />
         </div>
         <div>
@@ -18,6 +46,7 @@ export const AddStudent = () => {
             name="last_name"
             className="last_name"
             placeholder="enter last name"
+            onChange={handlechange}
           />
         </div>
         <div>
@@ -40,6 +69,7 @@ export const AddStudent = () => {
               className="male"
               type="radio"
               value={"male"}
+              onChange={handlechange}
             />{" "}
             Female{" "}
             <input
@@ -47,6 +77,7 @@ export const AddStudent = () => {
               className="female"
               type="radio"
               value={"female"}
+              onChange={handlechange}
             />
           </div>
         </div>
@@ -57,6 +88,7 @@ export const AddStudent = () => {
             name="age"
             className="age"
             placeholder="enter age"
+            onChange={handlechange}
           />
         </div>
         <div>
@@ -66,6 +98,7 @@ export const AddStudent = () => {
             name="tenth_score"
             className="tenth_score"
             placeholder="enter 10th score"
+            onChange={handlechange}
           />{" "}
         </div>
         <div>
@@ -75,6 +108,7 @@ export const AddStudent = () => {
             name="twelth_score"
             className="twelth_score"
             placeholder="enter 12th score"
+            onChange={handlechange}
           />{" "}
         </div>
         <div>
@@ -82,17 +116,18 @@ export const AddStudent = () => {
             value={""} // select dropdown needs both value and onChange attributes
             name="preferred_branch"
             className="preferred_branch"
+            onChange={handlechange}
           >
-            <option value="law">law</option>
-            <option value="commerce">commerce</option>
-            <option value="science">science</option>
-            <option value="sports">sports</option>
-            <option value="arts">arts</option>
-            <option value="acting">acting</option>
+            <option value="law" onChange={handlechange}>law</option>
+            <option value="commerce" onChange={handlechange}>commerce</option>
+            <option value="science" onChange={handlechange}>science</option>
+            <option value="sports" onChange={handlechange}>sports</option>
+            <option value="arts" onChange={handlechange}>arts</option>
+            <option value="acting" onChange={handlechange}>acting</option>
           </select>
         </div>
   
-        <input className="submit" type="submit" value="Submit" />
+        <input className="submit" type="submit" value="Submit" onClick={()=>{datainfo(formData)}} />
         {
           // <div className="error"></div>
           // show this div with proper error before submitting form, if there's anything not provided
@@ -100,4 +135,4 @@ export const AddStudent = () => {
         }
       </form>
     );
-  };
+      };
