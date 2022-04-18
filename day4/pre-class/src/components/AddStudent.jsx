@@ -20,7 +20,7 @@ export const AddStudent = () => {
     console.log(formData)
   }
   async function postdata(formData){
-    var data2 = await fetch("http://localhost:3000/students",{
+    var data2 = await fetch("http://localhost:8080/students",{
       method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
